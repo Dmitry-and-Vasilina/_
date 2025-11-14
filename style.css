@@ -1,0 +1,214 @@
+body {
+    font-family: 'Georgia', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fef9f3;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 40px 20px;
+    border-bottom: 1px dashed #e0c9b8;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #b8860b;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-style: italic;
+    margin-bottom: 30px;
+}
+
+.couple-names {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    color: #8b4513;
+}
+
+.couple-names .fa-heart {
+    color: #ff6b6b;
+    font-size: 1.5em;
+}
+
+.date {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #b8860b;
+}
+
+.form-section {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #8b4513;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 3px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background-color: #b8860b;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark:after {
+    content: "✓";
+    color: white;
+    font-weight: bold;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #b8860b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #a07828;
+}
+
+.submit-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Стили для секций гостей */
+.guest-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border-left: 4px solid #b8860b;
+}
+
+.guest-section h3 {
+    color: #8b4513;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Кнопка добавления гостя */
+.add-guest-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.add-guest-btn:hover {
+    background-color: #218838;
+}
+
+/* Кнопка удаления гостя */
+.remove-guest-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.remove-guest-btn:hover {
+    background-color: #c82333;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    .couple-names {
+        font-size: 1.8em;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .form-section {
+        padding: 20px;
+    }
+}
