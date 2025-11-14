@@ -74,55 +74,9 @@
                     </div>
                 </div>
 
-                <!-- Дополнительные гости -->
+                <!-- Дополнительные гости (изначально пусто) -->
                 <div id="additionalGuests">
-                    <div class="guest-section">
-                        <h3>Дополнительный гость 1</h3>
-                        <div class="form-group">
-                            <label>Имя и фамилия</label>
-                            <input type="text" name="guest1_name" placeholder="Введите имя и фамилию">
-                        </div>
-                        <div class="form-group">
-                            <label>Выберите напитки:</label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="guest1_alcohol" value="Красное вино">
-                                    <span class="checkmark"></span>
-                                    Красное вино
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="guest1_alcohol" value="Белое вино">
-                                    <span class="checkmark"></span>
-                                    Белое вино
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="guest1_alcohol" value="Шампанское">
-                                    <span class="checkmark"></span>
-                                    Шампанское
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="guest1_alcohol" value="Виски">
-                                    <span class="checkmark"></span>
-                                    Виски
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="guest1_alcohol" value="Водка">
-                                    <span class="checkmark"></span>
-                                    Водка
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="guest1_alcohol" value="Коньяк">
-                                    <span class="checkmark"></span>
-                                    Коньяк
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="guest1_alcohol" value="Не пью алкоголь">
-                                    <span class="checkmark"></span>
-                                    Не пью алкоголь
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Дополнительные гости будут добавляться здесь -->
                 </div>
 
                 <!-- Кнопка добавления гостя -->
@@ -139,7 +93,7 @@
     </div>
 
     <script>
-        let guestCount = 1;
+        let guestCount = 0;
 
         // Функция добавления дополнительного гостя
         document.getElementById('addGuestBtn').addEventListener('click', function() {
@@ -226,57 +180,9 @@
                             messageDiv.style.color = '#155724';
                             messageDiv.textContent = 'Спасибо! Все ответы успешно отправлены. Ждём вас на празднике!';
                             this.reset();
-                            // Сбрасываем дополнительных гостей
-                            document.getElementById('additionalGuests').innerHTML = `
-                                <div class="guest-section">
-                                    <h3>Дополнительный гость 1</h3>
-                                    <div class="form-group">
-                                        <label>Имя и фамилия</label>
-                                        <input type="text" name="guest1_name" placeholder="Введите имя и фамилию">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Выберите напитки:</label>
-                                        <div class="checkbox-group">
-                                            <label class="checkbox-label">
-                                                <input type="checkbox" name="guest1_alcohol" value="Красное вино">
-                                                <span class="checkmark"></span>
-                                                Красное вино
-                                            </label>
-                                            <label class="checkbox-label">
-                                                <input type="checkbox" name="guest1_alcohol" value="Белое вино">
-                                                <span class="checkmark"></span>
-                                                Белое вино
-                                            </label>
-                                            <label class="checkbox-label">
-                                                <input type="checkbox" name="guest1_alcohol" value="Шампанское">
-                                                <span class="checkmark"></span>
-                                                Шампанское
-                                            </label>
-                                            <label class="checkbox-label">
-                                                <input type="checkbox" name="guest1_alcohol" value="Виски">
-                                                <span class="checkmark"></span>
-                                                Виски
-                                            </label>
-                                            <label class="checkbox-label">
-                                                <input type="checkbox" name="guest1_alcohol" value="Водка">
-                                                <span class="checkmark"></span>
-                                                Водка
-                                            </label>
-                                            <label class="checkbox-label">
-                                                <input type="checkbox" name="guest1_alcohol" value="Коньяк">
-                                                <span class="checkmark"></span>
-                                                Коньяк
-                                            </label>
-                                            <label class="checkbox-label">
-                                                <input type="checkbox" name="guest1_alcohol" value="Не пью алкоголь">
-                                                <span class="checkmark"></span>
-                                                Не пью алкоголь
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                            guestCount = 1;
+                            // Очищаем дополнительных гостей
+                            document.getElementById('additionalGuests').innerHTML = '';
+                            guestCount = 0;
                         } else {
                             throw new Error(data.message || 'Ошибка сервера');
                         }
