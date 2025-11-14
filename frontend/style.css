@@ -1,31 +1,52 @@
+/* Базовые стили и сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     color: #333;
     line-height: 1.6;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%; /* Предотвращает изменение размера текста на iOS */
 }
 
+/* Герой-секция */
 .hero {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('your-hero-image.jpg');
     background-size: cover;
     background-position: center;
-    height: 100vh;
+    background-attachment: fixed;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: white;
+    padding: 20px;
 }
 
 .hero-content h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 4em;
-    margin-bottom: 0;
+    font-size: clamp(2.5em, 8vw, 4em);
+    margin-bottom: 20px;
+    font-weight: 400;
+    line-height: 1.2;
 }
 
+.hero-content p {
+    font-size: clamp(1.1em, 4vw, 1.5em);
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+/* Основные секции */
 .info, .rsvp {
-    padding: 60px 20px;
+    padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 40px);
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
@@ -35,57 +56,293 @@ body {
     background-color: #f9f9f9;
 }
 
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8em, 6vw, 2.5em);
+    margin-bottom: 30px;
+    color: #333;
+    line-height: 1.3;
+}
+
+h3 {
+    font-size: clamp(1.3em, 5vw, 1.6em);
+    margin-bottom: 15px;
+    color: #555;
+}
+
+/* Формы */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: clamp(15px, 4vw, 20px);
     text-align: left;
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-weight: bold;
+    font-size: clamp(14px, 4vw, 16px);
+    color: #555;
 }
 
 input, select {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: clamp(12px, 4vw, 15px);
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
     box-sizing: border-box;
+    font-size: 16px; /* Предотвращает zoom на iOS */
+    transition: border-color 0.3s ease;
+    background-color: #fff;
 }
 
-button {
-    background-color: #d4a574; /* Тёплый свадебный цвет */
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 4px;
+input:focus, select:focus {
+    outline: none;
+    border-color: #d4a574;
+    box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+}
+
+/* Чекбоксы для алкоголя */
+.alcohol-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     cursor: pointer;
-    font-size: 1em;
+    padding: 12px 0;
+    font-size: clamp(14px, 4vw, 16px);
+    min-height: 44px; /* Минимальный размер для касания */
+    transition: background-color 0.2s ease;
+    border-radius: 6px;
+    padding-left: 10px;
+}
+
+.checkbox-label:hover {
+    background-color: #f8f9fa;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    transform: scale(1.1);
+    accent-color: #d4a574;
+}
+
+.plus-one-alcohol {
+    margin-top: 15px;
+}
+
+/* Кнопки */
+button {
+    background-color: #d4a574;
+    color: white;
+    padding: clamp(14px, 4vw, 16px) clamp(25px, 6vw, 35px);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: clamp(16px, 4vw, 18px);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    min-height: 44px; /* Минимальный размер для касания */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 button:hover {
     background-color: #c89564;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
 }
 
+button:active {
+    transform: translateY(0);
+}
+
+#addPlusOneBtn {
+    background-color: transparent;
+    color: #d4a574;
+    border: 2px dashed #d4a574;
+    margin-bottom: 25px;
+    width: 100%;
+    font-weight: 600;
+}
+
+#addPlusOneBtn:hover {
+    background-color: rgba(212, 165, 116, 0.1);
+    transform: translateY(-2px);
+}
+
+.remove-plus-one-btn {
+    background-color: #ff6b6b;
+    font-size: clamp(14px, 3vw, 15px);
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+
+.remove-plus-one-btn:hover {
+    background-color: #ff5252;
+}
+
+#submitBtn {
+    width: 100%;
+    font-size: clamp(16px, 4vw, 18px);
+    padding: 16px 25px;
+}
+
+#submitBtn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Блоки дополнительных гостей */
 .plus-one-fields {
-    border: 1px dashed #ccc;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 4px;
+    border: 2px dashed #d4a574;
+    padding: clamp(15px, 4vw, 20px);
+    margin-bottom: 20px;
+    border-radius: 12px;
     background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+.plus-one-fields h4 {
+    font-size: clamp(1.1em, 4vw, 1.3em);
+    margin-bottom: 15px;
+    color: #d4a574;
+    font-weight: 600;
+}
+
+/* Сообщения */
 .hidden {
     display: none;
 }
 
 .success {
-    color: green;
+    color: #28a745;
     font-weight: bold;
+    font-size: clamp(14px, 4vw, 16px);
+    padding: 15px 20px;
+    background-color: #d4edda;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #c3e6cb;
+    text-align: center;
 }
 
 .error {
-    color: red;
+    color: #dc3545;
     font-weight: bold;
+    font-size: clamp(14px, 4vw, 16px);
+    padding: 15px 20px;
+    background-color: #f8d7da;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #f5c6cb;
+    text-align: center;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .hero {
+        background-attachment: scroll;
+        min-height: 70vh;
+    }
+    
+    .info, .rsvp {
+        padding: 30px 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .checkbox-label {
+        padding: 10px 8px;
+    }
+    
+    .plus-one-fields {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        margin-bottom: 15px;
+    }
+    
+    .hero-content p {
+        margin-bottom: 8px;
+    }
+    
+    button {
+        width: 100%;
+    }
+    
+    .alcohol-checkboxes {
+        gap: 8px;
+    }
+}
+
+/* Ландшафтная ориентация для мобильных */
+@media (max-width: 900px) and (orientation: landscape) {
+    .hero {
+        min-height: 120vh;
+    }
+    
+    .hero-content h1 {
+        font-size: clamp(2em, 6vw, 3em);
+    }
+}
+
+/* Улучшения для touch-устройств */
+@media (hover: none) {
+    button:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .checkbox-label:hover {
+        background-color: transparent;
+    }
+    
+    input:focus, select:focus {
+        font-size: 16px;
+    }
+}
+
+/* Поддержка темной темы */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1a1a1a;
+        color: #e1e1e1;
+    }
+    
+    .rsvp {
+        background-color: #2d2d2d;
+    }
+    
+    input, select {
+        background-color: #333;
+        border-color: #555;
+        color: #e1e1e1;
+    }
+    
+    .plus-one-fields {
+        background-color: #333;
+        border-color: #555;
+    }
+    
+    .checkbox-label:hover {
+        background-color: #3a3a3a;
+    }
 }
