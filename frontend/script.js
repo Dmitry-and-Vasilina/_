@@ -117,6 +117,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         <input type="checkbox" name="plusOnes[${window.plusOneCount}][alcohol]" value="виски"> Виски
                     </label>
                     <label class="checkbox-label">
+                        <input type="checkbox" name="plusOnes[${window.plusOneCount}][alcohol]" value="коньяк"> Коньяк
+                    </label>
+                    <label class="checkbox-label">
                         <input type="checkbox" name="plusOnes[${window.plusOneCount}][alcohol]" value="не пью"> Не пью алкоголь
                     </label>
                 </div>
