@@ -100,7 +100,7 @@ body {
 .countdown-item:nth-child(4) .countdown-number { animation-delay: 1.5s; }
 
 /* Основные секции */
-.info, .rsvp, .location {
+.info, .rsvp, .location, .schedule {
     padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 40px);
     max-width: 1000px;
     margin: 0 auto;
@@ -115,7 +115,11 @@ body {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
-.location-content {
+.schedule {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+}
+
+.location-content, .schedule-content {
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -427,6 +431,98 @@ button:active {
     margin: 0;
 }
 
+/* Стили для программы дня */
+.schedule-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.schedule h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8em, 6vw, 2.5em);
+    margin-bottom: 50px;
+    color: #333;
+    text-align: center;
+}
+
+/* Таймлайн */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #d4a574, #c89564);
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -38px;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    background: #d4a574;
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px #d4a574;
+    z-index: 2;
+}
+
+.timeline-time {
+    font-size: clamp(1.1em, 4vw, 1.3em);
+    font-weight: 700;
+    color: #d4a574;
+    margin-bottom: 8px;
+    font-family: 'Playfair Display', serif;
+}
+
+.timeline-content {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #d4a574;
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateX(10px);
+    box-shadow: 0 8px 30px rgba(212, 165, 116, 0.15);
+}
+
+.timeline-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2em, 4vw, 1.4em);
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.timeline-content p {
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+    font-size: clamp(14px, 3vw, 16px);
+}
+
 /* Адаптивность для таймера и карты */
 @media (max-width: 768px) {
     .countdown {
@@ -452,7 +548,7 @@ button:active {
         min-height: 70vh;
     }
     
-    .info, .rsvp, .location {
+    .info, .rsvp, .location, .schedule {
         padding: 30px 15px;
     }
     
@@ -489,6 +585,29 @@ button:active {
     .map-links {
         flex-direction: column;
         gap: 10px;
+    }
+    
+    /* Адаптивность для таймлайна */
+    .timeline {
+        padding-left: 25px;
+    }
+    
+    .timeline::before {
+        left: 12px;
+    }
+    
+    .timeline-item::before {
+        left: -30px;
+        width: 14px;
+        height: 14px;
+    }
+    
+    .timeline-content {
+        padding: 20px;
+    }
+    
+    .timeline-content:hover {
+        transform: translateX(5px);
     }
 }
 
@@ -540,6 +659,30 @@ button:active {
     
     .transport-icon {
         font-size: 1.8em;
+    }
+    
+    /* Адаптивность для таймлайна */
+    .timeline {
+        padding-left: 20px;
+    }
+    
+    .timeline::before {
+        left: 10px;
+    }
+    
+    .timeline-item::before {
+        left: -26px;
+        width: 12px;
+        height: 12px;
+    }
+    
+    .timeline-content {
+        padding: 15px;
+    }
+    
+    .timeline-item {
+        margin-bottom: 30px;
+        padding-bottom: 15px;
     }
 }
 
@@ -595,7 +738,36 @@ button:active {
         transform: none;
         box-shadow: none;
     }
+    
+    .timeline-content:hover {
+        transform: none;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
 }
+
+/* Анимация появления элементов таймлайна */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.timeline-item {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item:nth-child(4) { animation-delay: 0.4s; }
+.timeline-item:nth-child(5) { animation-delay: 0.5s; }
+.timeline-item:nth-child(6) { animation-delay: 0.6s; }
+.timeline-item:nth-child(7) { animation-delay: 0.7s; }
 
 /* Поддержка темной темы */
 @media (prefers-color-scheme: dark) {
@@ -610,6 +782,10 @@ button:active {
     
     .location {
         background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    }
+    
+    .schedule {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     }
     
     input, select {
@@ -671,5 +847,29 @@ button:active {
     
     .transport-text p {
         color: #ccc;
+    }
+    
+    /* Темная тема для программы дня */
+    .timeline-content {
+        background: #333;
+        border-left-color: #d4a574;
+    }
+    
+    .timeline-content h3 {
+        color: #e1e1e1;
+    }
+    
+    .timeline-content p {
+        color: #ccc;
+    }
+    
+    .timeline::before {
+        background: linear-gradient(to bottom, #d4a574, #c89564);
+    }
+    
+    .timeline-item::before {
+        background: #d4a574;
+        border-color: #333;
+        box-shadow: 0 0 0 3px #d4a574;
     }
 }
