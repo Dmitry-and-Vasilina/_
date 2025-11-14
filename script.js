@@ -39,10 +39,7 @@ function updateCountdown() {
 // Функция для получения выбранных чекбоксов по имени
 function getSelectedAlcohol(name) {
     const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
-    const selected = Array.from(checkboxes).map(cb => cb.value);
-    
-    // Если не выбран ни один чекбокс, возвращаем пустой массив для валидации
-    return selected.length > 0 ? selected : [];
+    return Array.from(checkboxes).map(cb => cb.value);
 }
 
 // Функция для валидации формы
@@ -133,13 +130,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Обработчик для кнопки удаления
         plusOneDiv.querySelector('.remove-plus-one-btn').addEventListener('click', function() {
-            plusOnesContainer.removeChild(plusOneDiv);
+            plusOneDiv.remove(); // Более современный способ
             window.plusOneCount--;
         });
     });
 
     // Обработчик отправки формы
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', async function(event) { // Добавил async для лучшей читаемости
         event.preventDefault();
 
         const submitBtn = document.getElementById('submitBtn');
@@ -147,88 +144,67 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Отправляем...';
 
-        // Собираем данные формы
-        const mainGuestName = document.getElementById('guestName').value;
-        const mainGuestAlcohol = getSelectedAlcohol('mainGuestAlcohol');
+        try {
+            // Собираем данные формы
+            const mainGuestName = document.getElementById('guestName').value;
+            const mainGuestAlcohol = getSelectedAlcohol('mainGuestAlcohol');
 
-        // Валидация формы
-        const validationError = validateForm(mainGuestName, mainGuestAlcohol);
-        if (validationError) {
-            responseMessage.textContent = validationError;
-            responseMessage.className = 'error';
-            responseMessage.classList.remove('hidden');
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalBtnText;
-            return;
-        }
-
-        // Создаем объект для отправки
-        const dataToSend = {
-            mainGuest: {
-                name: mainGuestName.trim(),
-                alcohol: mainGuestAlcohol
-            },
-            plusOnes: []
-        };
-
-        // Собираем данные о спутниках
-        const plusOneFields = document.querySelectorAll('.plus-one-fields');
-        let hasPlusOneErrors = false;
-        
-        plusOneFields.forEach((field, index) => {
-            const nameInput = field.querySelector('input[type="text"]');
-            const name = nameInput ? nameInput.value.trim() : '';
-            const alcoholCheckboxes = field.querySelectorAll('input[type="checkbox"]:checked');
-            const alcohol = Array.from(alcoholCheckboxes).map(cb => cb.value);
-            
-            // Валидация данных спутников
-            if (name && alcohol.length === 0) {
-                responseMessage.textContent = `Пожалуйста, выберите алкоголь для спутника ${index + 1}`;
-                responseMessage.className = 'error';
-                responseMessage.classList.remove('hidden');
-                hasPlusOneErrors = true;
-                return;
+            // Валидация формы
+            const validationError = validateForm(mainGuestName, mainGuestAlcohol);
+            if (validationError) {
+                throw new Error(validationError);
             }
+
+            // Создаем объект для отправки
+            const dataToSend = {
+                mainGuest: {
+                    name: mainGuestName.trim(),
+                    alcohol: mainGuestAlcohol
+                },
+                plusOnes: []
+            };
+
+            // Собираем данные о спутниках
+            const plusOneFields = document.querySelectorAll('.plus-one-fields');
             
-            if (alcohol.length > 0 && !name) {
-                responseMessage.textContent = `Пожалуйста, введите имя для спутника ${index + 1}`;
-                responseMessage.className = 'error';
-                responseMessage.classList.remove('hidden');
-                hasPlusOneErrors = true;
-                return;
+            for (const [index, field] of plusOneFields.entries()) {
+                const nameInput = field.querySelector('input[type="text"]');
+                const name = nameInput ? nameInput.value.trim() : '';
+                const alcohol = getSelectedAlcohol(`plusOneAlcohol${index + 1}`);
+                
+                // Валидация данных спутников
+                if (name && alcohol.length === 0) {
+                    throw new Error(`Пожалуйста, выберите алкоголь для спутника ${index + 1}`);
+                }
+                
+                if (alcohol.length > 0 && !name) {
+                    throw new Error(`Пожалуйста, введите имя для спутника ${index + 1}`);
+                }
+                
+                if (name && alcohol.length > 0) {
+                    dataToSend.plusOnes.push({ 
+                        name: name, 
+                        alcohol: alcohol 
+                    });
+                }
             }
-            
-            if (name && alcohol.length > 0) {
-                dataToSend.plusOnes.push({ 
-                    name: name, 
-                    alcohol: alcohol 
-                });
-            }
-        });
 
-        if (hasPlusOneErrors) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalBtnText;
-            return;
-        }
+            console.log('Отправляемые данные:', dataToSend);
 
-        console.log('Отправляемые данные:', dataToSend);
+            // ОТПРАВЛЯЕМ ДАННЫЕ НА GOOGLE APPS SCRIPT
+            const response = await fetch(SERVER_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend)
+            });
 
-        // ОТПРАВЛЯЕМ ДАННЫЕ НА GOOGLE APPS SCRIPT
-        fetch(SERVER_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dataToSend)
-        })
-        .then(response => {
             if (!response.ok) {
-                throw new Error('Ошибка сети');
+                throw new Error('Ошибка сети: ' + response.status);
             }
-            return response.json();
-        })
-        .then(data => {
+
+            const data = await response.json();
             console.log('Ответ от сервера:', data);
             
             if (data.success) {
@@ -246,17 +222,16 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 throw new Error(data.message || 'Ошибка при отправке');
             }
-        })
-        .catch(error => {
+            
+        } catch (error) {
             console.error('Ошибка:', error);
             responseMessage.textContent = error.message || 'Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.';
             responseMessage.className = 'error';
-        })
-        .finally(() => {
+            responseMessage.classList.remove('hidden');
+        } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = originalBtnText;
-            responseMessage.classList.remove('hidden');
-        });
+        }
     });
 
     // Добавляем обработчик для сброса формы при нажатии Escape
@@ -273,16 +248,4 @@ document.addEventListener('DOMContentLoaded', function() {
 // Добавляем обработку ошибок загрузки страницы
 window.addEventListener('error', function(event) {
     console.error('Ошибка на странице:', event.error);
-});
-
-// Добавляем обработчик для улучшения UX на мобильных устройствах
-window.addEventListener('load', function() {
-    // Предотвращаем масштабирование при фокусе на iOS
-    const inputs = document.querySelectorAll('input, select, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('focus', function() {
-            window.scrollTo(0, 0);
-            document.body.scrollTop = 0;
-        });
-    });
 });
