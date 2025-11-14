@@ -28,7 +28,7 @@
                 <h3>Основной гость</h3>
                 <div class="form-group">
                     <label for="name">Ваше имя и фамилия *</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" required>
                 </div>
 
                 <div class="form-group">
@@ -92,6 +92,8 @@
     </div>
 
     <script>
+        const BOT_TOKEN = '8044113138:AAGY9F1YVBXbyKrqX_wXGsnn42IYYm0YAJ0';
+        const CHAT_ID = '409598781';
         let guestCount = 0;
 
         // Функция добавления дополнительного гостя
@@ -154,12 +156,39 @@
 
         // Функция получения выбранных напитков
         function getSelectedAlcohol(containerId) {
-            const checkboxes = document.querySelectorAll(`#${containerId} input[type="checkbox"]:checked`);
+            const container = document.getElementById(containerId);
+            if (!container) return [];
+            const checkboxes = container.querySelectorAll('input[type="checkbox"]:checked');
             return Array.from(checkboxes).map(cb => cb.value);
         }
 
+        // Функция отправки в Telegram
+        async function sendToTelegram(message) {
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                const result = await response.json();
+                return result.ok;
+            } catch (error) {
+                console.error('Ошибка отправки в Telegram:', error);
+                return false;
+            }
+        }
+
         // Обработка отправки
-        document.getElementById('submitBtn').addEventListener('click', function() {
+        document.getElementById('submitBtn').addEventListener('click', async function() {
             const submitButton = this;
             const messageDiv = document.getElementById('formMessage');
             const name = document.getElementById('name').value;
@@ -178,66 +207,65 @@
             // Собираем данные дополнительных гостей
             const additionalGuests = [];
             for (let i = 1; i <= guestCount; i++) {
-                const guestName = document.getElementById(`guest${i}_name`);
-                if (guestName && guestName.value.trim() !== '') {
+                const guestNameInput = document.getElementById(`guest${i}_name`);
+                if (guestNameInput && guestNameInput.value.trim() !== '') {
                     const guestAlcohol = getSelectedAlcohol(`guest${i}_alcohol`);
                     additionalGuests.push({
-                        name: guestName.value,
+                        name: guestNameInput.value,
                         alcohol: guestAlcohol
                     });
                 }
             }
 
-            // Создаем URL с параметрами
-            let url = 'https://script.google.com/macros/s/AKfycbxgURBR4l1OfAyto1X6KyAVi73NvRIxg8PqsIE86lwdmqwMCcMoYX9mfAdnmFimhcRDiQ/exec?';
-            url += 'name=' + encodeURIComponent(name);
-            url += '&alcohol=' + encodeURIComponent(mainAlcohol.join(','));
-            
-            // Добавляем дополнительных гостей
-            additionalGuests.forEach((guest, index) => {
-                url += `&guest${index + 1}_name=` + encodeURIComponent(guest.name);
-                url += `&guest${index + 1}_alcohol=` + encodeURIComponent(guest.alcohol.join(','));
-            });
+            // Формируем сообщение для Telegram
+            let message = `<b>🎉 Новые ответы на приглашение!</b>\n\n`;
+            message += `<b>👤 Основной гость:</b> ${name}\n`;
+            message += `<b>🍷 Напитки:</b> ${mainAlcohol.length > 0 ? mainAlcohol.join(', ') : 'Не указано'}\n\n`;
 
-            console.log('Отправляемый URL:', url);
+            if (additionalGuests.length > 0) {
+                message += `<b>Дополнительные гости:</b>\n\n`;
+                additionalGuests.forEach((guest, index) => {
+                    message += `<b>👥 Гость ${index + 1}:</b> ${guest.name}\n`;
+                    message += `<b>🍷 Напитки:</b> ${guest.alcohol.length > 0 ? guest.alcohol.join(', ') : 'Не указано'}\n\n`;
+                });
+            } else {
+                message += `<b>👥 Дополнительных гостей нет</b>\n\n`;
+            }
 
-            // Отправляем GET запрос
-            fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    messageDiv.style.display = 'block';
-                    messageDiv.style.backgroundColor = '#d4edda';
-                    messageDiv.style.color = '#155724';
-                    messageDiv.textContent = 'Спасибо! Все ответы успешно отправлены. Ждём вас на празднике!';
-                    
-                    // Сбрасываем форму
-                    document.getElementById('name').value = '';
-                    
-                    // Снимаем выделение с чекбоксов
-                    const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
-                    allCheckboxes.forEach(checkbox => {
-                        checkbox.checked = false;
-                    });
-                    
-                    // Очищаем дополнительных гостей
-                    document.getElementById('additionalGuests').innerHTML = '';
-                    guestCount = 0;
-                } else {
-                    throw new Error(data.message || 'Ошибка сервера');
-                }
-            })
-            .catch(error => {
-                console.error('Ошибка:', error);
+            message += `<b>📊 Всего гостей:</b> ${1 + additionalGuests.length}`;
+
+            console.log('Отправляем сообщение:', message);
+
+            // Отправляем в Telegram
+            const success = await sendToTelegram(message);
+
+            if (success) {
+                messageDiv.style.display = 'block';
+                messageDiv.style.backgroundColor = '#d4edda';
+                messageDiv.style.color = '#155724';
+                messageDiv.textContent = 'Спасибо! Все ответы успешно отправлены. Ждём вас на празднике!';
+                
+                // Сбрасываем форму
+                document.getElementById('name').value = '';
+                
+                // Снимаем выделение с чекбоксов
+                const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+                allCheckboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                // Очищаем дополнительных гостей
+                document.getElementById('additionalGuests').innerHTML = '';
+                guestCount = 0;
+            } else {
                 messageDiv.style.display = 'block';
                 messageDiv.style.backgroundColor = '#f8d7da';
                 messageDiv.style.color = '#721c24';
                 messageDiv.textContent = 'Произошла ошибка при отправке. Пожалуйста, попробуйте ещё раз.';
-            })
-            .finally(() => {
-                submitButton.textContent = 'Отправить все ответы';
-                submitButton.disabled = false;
-            });
+            }
+
+            submitButton.textContent = 'Отправить все ответы';
+            submitButton.disabled = false;
         });
     </script>
 </body>
