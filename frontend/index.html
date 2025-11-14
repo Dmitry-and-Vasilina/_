@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на свадьбу | Дмитрий & Василина</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Дмитрий & Василина</h1>
+            <p>Мы женимся!</p>
+            <p>26 июня 2026</p>
+        </div>
+    </section>
+
+    <section class="info">
+        <h2>Детали мероприятия</h2>
+        <p><strong>Когда:</strong> 26 июня 2026, 13:00</p>
+        <p><strong>Где:</strong> Усадьба "Komarovo village", г. </p>
+        <p>Мы будем счастливы разделить с вами этот особенный день!</p>
+    </section>
+
+    <section class="rsvp">
+        <h2>Подтвердите участие</h2>
+        <form id="rsvpForm">
+            <div class="form-group">
+                <label for="guestName">Ваше имя и фамилия *</label>
+                <input type="text" id="guestName" name="guestName" required>
+            </div>
+
+            <!-- ДОБАВЛЕНО: Множественный выбор алкоголя для основного гостя -->
+            <div class="form-group">
+                <label>Ваши предпочтения по алкоголю *</label>
+                <div class="alcohol-checkboxes" id="mainGuestAlcoholContainer">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="mainGuestAlcohol" value="красное вино"> Красное вино
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="mainGuestAlcohol" value="белое вино"> Белое вино
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="mainGuestAlcohol" value="шампанское"> Шампанское
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="mainGuestAlcohol" value="водка"> Водка
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="mainGuestAlcohol" value="виски"> Виски
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="mainGuestAlcohol" value="не пью"> Не пью алкоголь
+                    </label>
+                </div>
+            </div>
+
+            <!-- Блок для дополнительных гостей -->
+            <div id="plusOnesContainer">
+                <h3>Вы придёте не один?</h3>
+                <p>Добавьте информацию о ваших спутниках.</p>
+            </div>
+            <button type="button" id="addPlusOneBtn">+ Добавить спутника</button>
+
+            <div class="form-group">
+                <button type="submit" id="submitBtn">Отправить ответ</button>
+            </div>
+        </form>
+        <div id="responseMessage" class="hidden"></div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
