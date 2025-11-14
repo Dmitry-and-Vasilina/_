@@ -10,7 +10,7 @@ const CONFIG = {
         'Пиво',
         'Не пью алкоголь'
     ],
-    GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyR45fspxBAka9e_xOBLfezNJTPJ7obCWKYFbmVqbSDL_YyK7z6bP8aDlLj8OiC7HkK/exec'
+    GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxG9IBX6iMP4fnM-HRNofooSw0kHw2u8jeLKtBmBVUsJznZGDvIGqZBG00D23wrtpcx/exec'
 };
 
 // Управление алкогольными опциями
