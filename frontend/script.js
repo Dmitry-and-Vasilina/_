@@ -1,4 +1,34 @@
+// Таймер до свадьбы
+function updateCountdown() {
+    const weddingDate = new Date('2026-06-26T13:00:00').getTime();
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+
+    if (distance < 0) {
+        document.getElementById('days').textContent = '00';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+}
+
+// Основной код формы
 document.addEventListener('DOMContentLoaded', function() {
+    // Запуск таймера
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
     const form = document.getElementById('rsvpForm');
     const plusOnesContainer = document.getElementById('plusOnesContainer');
     const addPlusOneBtn = document.getElementById('addPlusOneBtn');
@@ -25,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="form-group">
                 <label>Предпочтения по алкоголю</label>
-                <div class="alcohol-checkboxes">
+                <div class="alcohol-checkboxes plus-one-alcohol">
                     <label class="checkbox-label">
                         <input type="checkbox" name="plusOnes[${plusOneCount}][alcohol]" value="красное вино"> Красное вино
                     </label>
@@ -69,6 +99,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const mainGuestName = document.getElementById('guestName').value;
         const mainGuestAlcohol = getSelectedAlcohol('mainGuestAlcohol');
 
+        // Проверяем, что выбран хотя бы один вариант алкоголя
+        if (mainGuestAlcohol.length === 0 || (mainGuestAlcohol.length === 1 && mainGuestAlcohol[0] === 'не выбрано')) {
+            responseMessage.textContent = 'Пожалуйста, выберите предпочтения по алкоголю';
+            responseMessage.className = 'error';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Отправить ответ';
+            return;
+        }
+
         // Создаем объект для отправки
         const dataToSend = {
             mainGuest: {
@@ -83,7 +122,8 @@ document.addEventListener('DOMContentLoaded', function() {
         plusOneFields.forEach(field => {
             const nameInput = field.querySelector('input[type="text"]');
             const name = nameInput ? nameInput.value : '';
-            const alcohol = getSelectedAlcohol(`plusOnes[${plusOneCount}][alcohol]`);
+            const alcoholCheckboxes = field.querySelectorAll('input[type="checkbox"]:checked');
+            const alcohol = Array.from(alcoholCheckboxes).map(cb => cb.value);
             
             if (name) {
                 dataToSend.plusOnes.push({ name, alcohol });

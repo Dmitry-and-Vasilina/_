@@ -44,6 +44,61 @@ body {
     opacity: 0.9;
 }
 
+/* Стили для таймера */
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: clamp(10px, 3vw, 20px);
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: clamp(15px, 3vw, 20px);
+    min-width: clamp(70px, 15vw, 90px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.countdown-number {
+    font-size: clamp(1.8em, 6vw, 2.5em);
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.countdown-label {
+    font-size: clamp(0.7em, 2.5vw, 0.9em);
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+/* Анимация для таймера */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.countdown-number {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.countdown-item:nth-child(1) .countdown-number { animation-delay: 0s; }
+.countdown-item:nth-child(2) .countdown-number { animation-delay: 0.5s; }
+.countdown-item:nth-child(3) .countdown-number { animation-delay: 1s; }
+.countdown-item:nth-child(4) .countdown-number { animation-delay: 1.5s; }
+
 /* Основные секции */
 .info, .rsvp {
     padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 40px);
@@ -250,8 +305,26 @@ button:active {
     text-align: center;
 }
 
-/* Мобильная адаптация */
+/* Адаптивность для таймера */
 @media (max-width: 768px) {
+    .countdown {
+        gap: 8px;
+        margin-top: 25px;
+    }
+    
+    .countdown-item {
+        padding: 12px 8px;
+        min-width: 65px;
+    }
+    
+    .countdown-number {
+        font-size: 1.5em;
+    }
+    
+    .countdown-label {
+        font-size: 0.7em;
+    }
+    
     .hero {
         background-attachment: scroll;
         min-height: 70vh;
@@ -276,6 +349,24 @@ button:active {
 }
 
 @media (max-width: 480px) {
+    .countdown {
+        gap: 5px;
+    }
+    
+    .countdown-item {
+        padding: 10px 6px;
+        min-width: 60px;
+    }
+    
+    .countdown-number {
+        font-size: 1.3em;
+    }
+    
+    .countdown-label {
+        font-size: 0.65em;
+        letter-spacing: 0.5px;
+    }
+    
     .hero-content h1 {
         margin-bottom: 15px;
     }
@@ -295,6 +386,15 @@ button:active {
 
 /* Ландшафтная ориентация для мобильных */
 @media (max-width: 900px) and (orientation: landscape) {
+    .countdown {
+        margin-top: 20px;
+    }
+    
+    .countdown-item {
+        padding: 10px 8px;
+        min-width: 55px;
+    }
+    
     .hero {
         min-height: 120vh;
     }
@@ -317,6 +417,10 @@ button:active {
     
     input:focus, select:focus {
         font-size: 16px;
+    }
+    
+    .countdown-number {
+        animation: none; /* Убираем анимацию на тач-устройствах для производительности */
     }
 }
 
@@ -344,5 +448,10 @@ button:active {
     
     .checkbox-label:hover {
         background-color: #3a3a3a;
+    }
+    
+    .countdown-item {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
     }
 }
