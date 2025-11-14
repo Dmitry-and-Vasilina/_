@@ -10,7 +10,7 @@ const CONFIG = {
         'Пиво',
         'Не пью алкоголь'
     ],
-    GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyR45fspxBAka9e_xOBLfezNJTPJ7obCWKYFbmVqbSDL_YyK7z6bP8aDlLj8OiC7HkK/exec'
+    GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxG9IBX6iMP4fnM-HRNofooSw0kHw2u8jeLKtBmBVUsJznZGDvIGqZBG00D23wrtpcx/exec'
 };
 
 // Управление алкогольными опциями
@@ -199,6 +199,8 @@ const formHandler = {
     },
 
     sendData: function(formData) {
+        console.log('Sending data:', formData);
+        
         fetch(CONFIG.GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -247,21 +249,6 @@ const formHandler = {
 
     logSubmission: function() {
         console.log('Форма успешно отправлена');
-    }
-};
-
-// Утилиты
-const utils = {
-    debounce: function(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
     }
 };
 
