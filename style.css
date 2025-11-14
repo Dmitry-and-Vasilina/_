@@ -144,19 +144,6 @@ input[type="text"] {
     cursor: not-allowed;
 }
 
-@media (max-width: 600px) {
-    .container {
-        padding: 10px;
-    }
-    .couple-names {
-        font-size: 1.8em;
-        flex-direction: column;
-        gap: 5px;
-    }
-    .form-section {
-        padding: 20px;
-    }
-
 /* Стили для секций гостей */
 .guest-section {
     background: #f8f9fa;
@@ -211,4 +198,17 @@ input[type="text"] {
 .remove-guest-btn:hover {
     background-color: #c82333;
 }
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    .couple-names {
+        font-size: 1.8em;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .form-section {
+        padding: 20px;
+    }
 }
