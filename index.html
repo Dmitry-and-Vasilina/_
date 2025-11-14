@@ -162,15 +162,18 @@
             return Array.from(checkboxes).map(cb => cb.value);
         }
 
-        // Функция отправки в Telegram
+        // Функция отправки в Telegram через CORS прокси
         async function sendToTelegram(message) {
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            // Используем CORS прокси для обхода ограничений браузера
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+            const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
             
             try {
-                const response = await fetch(url, {
+                const response = await fetch(proxyUrl + telegramUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: JSON.stringify({
                         chat_id: CHAT_ID,
@@ -180,10 +183,31 @@
                 });
                 
                 const result = await response.json();
+                console.log('Результат отправки:', result);
                 return result.ok;
             } catch (error) {
                 console.error('Ошибка отправки в Telegram:', error);
-                return false;
+                
+                // Пробуем альтернативный прокси
+                try {
+                    const altResponse = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(telegramUrl)}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: CHAT_ID,
+                            text: message,
+                            parse_mode: 'HTML'
+                        })
+                    });
+                    
+                    const altResult = await altResponse.json();
+                    return altResult.ok;
+                } catch (altError) {
+                    console.error('Ошибка альтернативного прокси:', altError);
+                    return false;
+                }
             }
         }
 
