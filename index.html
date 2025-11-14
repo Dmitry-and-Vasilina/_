@@ -22,7 +22,7 @@
 
         <section class="form-section">
             <h2>Подтвердите, пожалуйста, своё присутствие и выбор напитков до 1 июля</h2>
-            <form id="rsvpForm" action="https://script.google.com/macros/s/AKfycbxgURBR4l1OfAyto1X6KyAVi73NvRIxg8PqsIE86lwdmqwMCcMoYX9mfAdnmFimhcRDiQ/exec" method="POST">
+            <form id="rsvpForm">
                 
                 <!-- Основной гость -->
                 <div class="guest-section">
@@ -74,7 +74,7 @@
                     </div>
                 </div>
 
-                <!-- Дополнительные гости (изначально пусто) -->
+                <!-- Дополнительные гости -->
                 <div id="additionalGuests">
                     <!-- Дополнительные гости будут добавляться здесь -->
                 </div>
@@ -157,48 +157,67 @@
         document.getElementById('rsvpForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const formData = new FormData(this);
             const submitButton = this.querySelector('.submit-btn');
             const messageDiv = document.getElementById('formMessage');
 
             submitButton.textContent = 'Отправляется...';
             submitButton.disabled = true;
 
-            // Отправляем данные в Google Apps Script
-            fetch(this.action, {
+            // Собираем данные вручную в JSON
+            const formData = {
+                name: document.querySelector('#name').value,
+                alcohol: Array.from(document.querySelectorAll('input[name="alcohol"]:checked')).map(cb => cb.value)
+            };
+
+            // Добавляем дополнительных гостей
+            const additionalGuests = [];
+            for (let i = 1; i <= guestCount; i++) {
+                const guestName = document.querySelector(`input[name="guest${i}_name"]`);
+                if (guestName && guestName.value.trim() !== '') {
+                    const guestAlcohol = Array.from(document.querySelectorAll(`input[name="guest${i}_alcohol"]:checked`)).map(cb => cb.value);
+                    additionalGuests.push({
+                        name: guestName.value,
+                        alcohol: guestAlcohol
+                    });
+                }
+            }
+
+            formData.additionalGuests = additionalGuests;
+
+            console.log('Отправляемые данные:', formData);
+
+            // Отправляем данные в Google Apps Script как JSON
+            fetch('https://script.google.com/macros/s/AKfycbxgURBR4l1OfAyto1X6KyAVi73NvRIxg8PqsIE86lwdmqwMCcMoYX9mfAdnmFimhcRDiQ/exec', {
                 method: 'POST',
-                body: formData,
-                redirect: 'follow'
+                headers: {
+                    'Content-Type': 'application/json',
+                'Accept': 'application/json'
+                },
+                body: JSON.stringify(formData)
             })
-            .then(response => {
-                return response.text().then(text => {
-                    try {
-                        const data = JSON.parse(text);
-                        if (data.success) {
-                            messageDiv.style.display = 'block';
-                            messageDiv.style.backgroundColor = '#d4edda';
-                            messageDiv.style.color = '#155724';
-                            messageDiv.textContent = 'Спасибо! Все ответы успешно отправлены. Ждём вас на празднике!';
-                            
-                            // Полностью сбрасываем форму
-                            this.reset();
-                            
-                            // Снимаем выделение с чекбоксов основного гостя
-                            const mainCheckboxes = this.querySelectorAll('input[name="alcohol"]');
-                            mainCheckboxes.forEach(checkbox => {
-                                checkbox.checked = false;
-                            });
-                            
-                            // Очищаем дополнительных гостей
-                            document.getElementById('additionalGuests').innerHTML = '';
-                            guestCount = 0;
-                        } else {
-                            throw new Error(data.message || 'Ошибка сервера');
-                        }
-                    } catch (error) {
-                        throw new Error('Ошибка обработки ответа');
-                    }
-                });
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.backgroundColor = '#d4edda';
+                    messageDiv.style.color = '#155724';
+                    messageDiv.textContent = 'Спасибо! Все ответы успешно отправлены. Ждём вас на празднике!';
+                    
+                    // Полностью сбрасываем форму
+                    this.reset();
+                    
+                    // Снимаем выделение с чекбоксов
+                    const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+                    allCheckboxes.forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+                    
+                    // Очищаем дополнительных гостей
+                    document.getElementById('additionalGuests').innerHTML = '';
+                    guestCount = 0;
+                } else {
+                    throw new Error(data.message || 'Ошибка сервера');
+                }
             })
             .catch(error => {
                 console.error('Ошибка:', error);
