@@ -98,7 +98,7 @@ body {
     opacity: 0.5;
 }
 
-/* Герой-секция */
+/* Герой-секция - СТАТИЧНАЯ с размытием */
 .hero {
     background: url('./images/hero.jpg') center/cover no-repeat;
     min-height: 100vh;
@@ -150,6 +150,7 @@ body {
     font-weight: 200;
     letter-spacing: 5px;
 }
+
 
 /* Секция с таймером */
 .countdown-section {
