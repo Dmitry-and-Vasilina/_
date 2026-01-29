@@ -100,7 +100,7 @@ body {
 /* Секция с таймером - тон #4D2121 */
 .countdown-section {
     background: 
-        url('./images/program-bg.png'),
+        url('./images/t.png'),
         #fff;
     background-size: cover;
     background-position: center;
@@ -157,7 +157,7 @@ body {
 /* Программа дня - тон #A58F7E */
 .program-section {
     background: 
-        url('./images/program-bg.png'),
+        url('./images/p.png'),
         #f9f7f4;
     background-size: cover;
     background-position: center;
@@ -195,7 +195,7 @@ body {
 /* Локация - тон #5C6654 */
 .location {
     background: 
-        url('./images/location-bg.jpg'),
+        url('./images/h.jpg'),
         #f8f9f7;
     background-size: cover;
     background-position: center;
@@ -286,7 +286,7 @@ body {
 /* Дресс-код - тон #4D2121 */
 .dress-code {
     background: 
-        url('./images/dresscode-bg.jpg'),
+        url('./images/t.png'),
         #fdf8f8;
     background-size: cover;
     background-position: center;
@@ -366,7 +366,7 @@ body {
 /* Подарки - тон #A58F7E */
 .gifts {
     background: 
-        url('./images/gifts-bg.jpg'),
+        url('./images/p.png'),
         #fbf9f7;
     background-size: cover;
     background-position: center;
@@ -427,7 +427,7 @@ body {
 /* FAQ - тон #5C6654 */
 .faq {
     background: 
-        url('./images/faq-bg.jpg'),
+        url('./images/h.jpg'),
         #f8f9f7;
     background-size: cover;
     background-position: center;
@@ -477,7 +477,7 @@ body {
 /* Форма RSVP - тон #4D2121 */
 .rsvp {
     background: 
-        url('./images/rsvp-bg.jpg'),
+        url('./images/t.png'),
         #fdf8f8;
     background-size: cover;
     background-position: center;
