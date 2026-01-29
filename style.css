@@ -63,8 +63,8 @@ body {
 .png-opacity-30 { opacity: 0.3; }
 .png-pos-2000-200 { top: 200px; right: 5%; }
 .png-pos-1500-400 { bottom: 400px; left: 5%; }
-.png-img-1 { background-image: url('./images/k.jpg'); }
-.png-img-10 { background-image: url('./images/k.jpg'); }
+.png-img-1 { background-image: url('./images/k1.jpg'); }
+.png-img-10 { background-image: url('./images/k1.jpg'); }
 
 /* Герой секция - тон #5C6654 */
 .hero {
@@ -74,7 +74,7 @@ body {
     justify-content: center;
     text-align: center;
     background: 
-        url('./images/h.png'),
+        url('./images/1.png'),
         #e0dcd7;
     background-size: cover;
     background-position: center;
@@ -100,7 +100,7 @@ body {
 /* Секция с таймером - тон #4D2121 */
 .countdown-section {
     background: 
-        url('./images/t.png'),
+        url('./images/2.png'),
         #e0dcd7;
     background-size: cover;
     background-position: center;
@@ -157,7 +157,7 @@ body {
 /* Программа дня - тон #A58F7E */
 .program-section {
     background: 
-        url('./images/p.png'),
+        url('./images/3.png'),
         #e0dcd7;
     background-size: cover;
     background-position: center;
@@ -195,7 +195,7 @@ body {
 /* Локация - тон #5C6654 */
 .location {
     background: 
-        url('./images/l.png'),
+        url('./images/4.png'),
         #e0dcd7;
     background-size: cover;
     background-position: center;
@@ -286,7 +286,7 @@ body {
 /* Дресс-код - тон #4D2121 */
 .dress-code {
     background: 
-        url('./images/dc.png'),
+        url('./images/5.png'),
         #e0dcd7;
     background-size: cover;
     background-position: center;
@@ -369,7 +369,7 @@ body {
 /* Подарки - тон #A58F7E */
 .gifts {
     background: 
-        url('./images/gf.png'),
+        url('./images/6.png'),
         #e0dcd7;
     background-size: cover;
     background-position: center;
@@ -433,7 +433,7 @@ body {
 /* FAQ - тон #5C6654 */
 .faq {
     background: 
-        url('./images/q.png'),
+        url('./images/7.png'),
         #72836f;
     background-size: cover;
     background-position: center;
@@ -486,7 +486,7 @@ body {
 /* Форма RSVP - тон #4D2121 */
 .rsvp {
     background: 
-        url('./images/a.png'),
+        url('./images/8.png'),
         #e0dcd7;
     background-size: cover;
     background-position: center;
@@ -710,7 +710,7 @@ body {
     }
     
     .form-section {
-        padding: 20px;
+        padding: 0px;
     }
     
     /* УДАЛИТЕ ВЕСЬ ЭТОТ БЛОК, КОТОРЫЙ ПЕРЕОПРЕДЕЛЯЕТ ФОНЫ */
