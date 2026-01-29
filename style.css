@@ -696,7 +696,11 @@ body {
     .gifts,
     .faq,
     .rsvp {
-        background-image: none;
+        background: 
+            linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.9)),
+            var(--mobile-bg);
+        background-size: cover;
+        background-position: center;
     }
     
     .hero {
