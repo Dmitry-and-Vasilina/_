@@ -74,7 +74,7 @@ body {
     justify-content: center;
     text-align: center;
     background: 
-        url('./images/hero.png'),
+        url('./images/h.jpg'),
         #fdf6f0;
     background-size: cover;
     background-position: center;
@@ -100,7 +100,7 @@ body {
 /* Секция с таймером - тон #4D2121 */
 .countdown-section {
     background: 
-        url('./images/hero.png'),
+        url('./images/program-bg.png'),
         #fff;
     background-size: cover;
     background-position: center;
@@ -157,7 +157,7 @@ body {
 /* Программа дня - тон #A58F7E */
 .program-section {
     background: 
-        url('./images/program-bg.jpg'),
+        url('./images/program-bg.png'),
         #f9f7f4;
     background-size: cover;
     background-position: center;
@@ -623,6 +623,10 @@ body {
 /* АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
 /* =========================================== */
 
+/* =========================================== */
+/* АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ - ИСПРАВЛЕННЫЙ */
+/* =========================================== */
+
 @media (max-width: 768px) {
     .section-title {
         font-size: 2rem;
@@ -630,11 +634,13 @@ body {
     
     .hero-content h1 {
         font-size: 2.5rem;
-        color: #444; /* Возвращаем темный цвет для контраста */
+        /* УБИРАЕМ изменение цвета, оставляем белый как в основном стиле */
+        /* color: #444;  УДАЛИТЬ ЭТУ СТРОКУ */
     }
     
     .wedding-date {
-        color: #666; /* Более темный для мобильных */
+        /* color: #666;  УДАЛИТЬ ЭТУ СТРОКУ */
+        /* Оставляем белый как в основном стиле */
     }
     
     .wedding-date-large {
@@ -695,9 +701,8 @@ body {
         padding: 20px;
     }
     
-    /* ОПТИМИЗИРОВАННЫЕ ФОНЫ ДЛЯ МОБИЛЬНЫХ */
-    /* Добавляем белый оверлей для лучшей читаемости текста */
-    
+    /* УДАЛИТЕ ВЕСЬ ЭТОТ БЛОК, КОТОРЫЙ ПЕРЕОПРЕДЕЛЯЕТ ФОНЫ */
+    /*
     .hero {
         background: 
             linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)),
@@ -771,8 +776,10 @@ body {
         background-size: cover;
         background-position: center;
     }
+    */
     
-    /* Улучшаем читаемость текста */
+    /* Также удалите этот блок изменения цвета текста */
+    /*
     .section-title,
     .greeting-large,
     .wedding-date-large,
@@ -782,6 +789,7 @@ body {
     .faq-intro {
         color: #444;
     }
+    */
     
     /* Делаем карточки более прозрачными для лучшего контраста */
     .location-card,
@@ -796,7 +804,7 @@ body {
     }
     
     .png-element {
-        display: none; /* Скрываем декоративные элементы на мобильных */
+        display: none;
     }
 }
 
@@ -834,7 +842,8 @@ body {
         padding-top: 20px;
     }
     
-    /* Еще более сильный оверлей для очень маленьких экранов */
+    /* УДАЛИТЕ И ЭТОТ БЛОК */
+    /*
     .hero,
     .countdown-section,
     .program-section,
@@ -849,6 +858,7 @@ body {
         background-size: cover;
         background-position: center;
     }
+    */
 }
 
 /* Плавные анимации */
