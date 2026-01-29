@@ -13,7 +13,7 @@ body {
     font-family: 'Playfair Display', serif;
     line-height: 1.6;
     color: #333;
-    background: #fff;
+    background: #e0dcd7;
     overflow-x: hidden;
 }
 
@@ -74,8 +74,8 @@ body {
     justify-content: center;
     text-align: center;
     background: 
-        url('./images/h.jpg'),
-        #fdf6f0;
+        url('./images/h.png'),
+        #e0dcd7;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -101,7 +101,7 @@ body {
 .countdown-section {
     background: 
         url('./images/t.png'),
-        #fff;
+        #e0dcd7;
     background-size: cover;
     background-position: center;
     text-align: center;
@@ -158,7 +158,7 @@ body {
 .program-section {
     background: 
         url('./images/p.png'),
-        #f9f7f4;
+        #e0dcd7;
     background-size: cover;
     background-position: center;
     padding-bottom: 40px;
@@ -195,8 +195,8 @@ body {
 /* Локация - тон #5C6654 */
 .location {
     background: 
-        url('./images/h.jpg'),
-        #f8f9f7;
+        url('./images/l.png'),
+        #e0dcd7;
     background-size: cover;
     background-position: center;
     padding-top: 20px;
@@ -286,10 +286,13 @@ body {
 /* Дресс-код - тон #4D2121 */
 .dress-code {
     background: 
-        url('./images/t.png'),
-        #fdf8f8;
+        url('./images/dc.png'),
+        #e0dcd7;
     background-size: cover;
     background-position: center;
+            /* УБИРАЕМ отступы между секциями */
+    padding-top: 0;
+    margin-top: -0.5px; /* Убираем возможную белую линию */
 }
 
 .dress-code-description {
@@ -366,10 +369,13 @@ body {
 /* Подарки - тон #A58F7E */
 .gifts {
     background: 
-        url('./images/p.png'),
-        #fbf9f7;
+        url('./images/gf.png'),
+        #e0dcd7;
     background-size: cover;
     background-position: center;
+            /* УБИРАЕМ отступы между секциями */
+    padding-top: 0;
+    margin-top: -1px; /* Убираем возможную белую линию */
 }
 
 .gifts-intro {
@@ -427,16 +433,19 @@ body {
 /* FAQ - тон #5C6654 */
 .faq {
     background: 
-        url('./images/h.jpg'),
-        #f8f9f7;
+        url('./images/q.png'),
+        #72836f;
     background-size: cover;
     background-position: center;
+        /* УБИРАЕМ отступы между секциями */
+    padding-top: 0;
+    margin-top: -1px; /* Убираем возможную белую линию */
 }
 
 .faq-intro {
     text-align: center;
     margin-bottom: 40px;
-    color: #666;
+    color: #ffffff;
 }
 
 .faq-list {
@@ -477,10 +486,13 @@ body {
 /* Форма RSVP - тон #4D2121 */
 .rsvp {
     background: 
-        url('./images/t.png'),
-        #fdf8f8;
+        url('./images/a.png'),
+        #e0dcd7;
     background-size: cover;
     background-position: center;
+            /* УБИРАЕМ отступы между секциями */
+    padding-top: 0;
+    margin-top: -1px; /* Убираем возможную белую линию */
 }
 
 .form-section {
