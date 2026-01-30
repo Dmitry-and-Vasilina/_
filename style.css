@@ -38,7 +38,7 @@ body {
     text-align: center;
     margin-bottom: 40px;
     font-weight: 300;
-    color: #444;
+    color: #e4e3e0;
 }
 
 /* PNG элементы */
@@ -105,6 +105,7 @@ body {
     background-size: cover;
     background-position: center;
     text-align: center;
+    padding: 60px 0;
 }
 
 .greeting-large {
@@ -124,82 +125,68 @@ body {
 
 .countdown-text {
     font-size: 1.2rem;
-    margin: 20px 0;
+    margin: 20px 0 40px;
     color: #666;
 }
 
+/* Таймер в одну строку */
 .countdown {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    align-items: center;
+    gap: 0; /* Убираем стандартные отступы */
     margin: 40px 0;
+    flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
 }
 
 .countdown-item {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 0 15px;
+}
+
+/* Добавляем разделители между элементами */
+.countdown-item:not(:last-child)::after {
+    content: '|';
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 7rem;
+    font-weight: 300;
+    color: #888;
+    opacity: 1.7;
 }
 
 .countdown-number {
-    font-size: 3rem;
+    font-size: 10rem; /* Увеличиваем размер */
     font-weight: 300;
     color: #444;
-    min-width: 80px;
+    min-width: 60px; /* Увеличиваем минимальную ширину */
+    line-height: 1;
+    font-family: 'Cormorant Infant', serif; /* Делаем более элегантным */
 }
 
 .countdown-label {
     font-size: 0.9rem;
     color: #888;
-    margin-top: 5px;
+    margin-top: 8px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Программа дня - тон #A58F7E */
-.program-section {
-    background: 
-        url('./images/3.png'),
-        #e0dcd7;
-    background-size: cover;
-    background-position: center;
-    padding-bottom: 40px;
-}
-
-.timeline {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.timeline-item {
-    display: flex;
-    margin-bottom: 30px;
-    align-items: flex-start;
-}
-
-.timeline-time {
-    font-family: 'Cormorant Infant', serif;
-    font-size: 1.5rem;
-    min-width: 80px;
-    color: #888;
-    padding-right: 20px;
-}
-
-.timeline-content h3 {
-    font-size: 1.3rem;
+    letter-spacing: 1.5px;
     font-weight: 400;
-    color: #444;
-    border-left: 2px solid #ddd;
-    padding-left: 20px;
-    padding-top: 0px;
 }
 
 /* Локация - тон #5C6654 */
 .location {
     background: 
-        url('./images/4.png'),
-        #e0dcd7;
+        url('./images/3.png'),
+        #5c6654;
     background-size: cover;
     background-position: center;
     padding-top: 20px;
+    margin-top: -0.5px; /* Убираем возможную белую линию */
 }
 
 .location-grid {
@@ -282,6 +269,46 @@ body {
 .map-btn:hover {
     background: #666;
 }
+
+/* Программа дня - тон #A58F7E */
+.program-section {
+    background: 
+        url('./images/4.png'),
+        #e0dcd7;
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 40px;
+}
+
+.timeline {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 30px;
+    align-items: flex-start;
+}
+
+.timeline-time {
+    font-family: 'Cormorant Infant', serif;
+    font-size: 1.5rem;
+    min-width: 80px;
+    color: #888;
+    padding-right: 20px;
+}
+
+.timeline-content h3 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #444;
+    border-left: 2px solid #ddd;
+    padding-left: 20px;
+    padding-top: 0px;
+}
+
+
 
 /* Дресс-код - тон #4D2121 */
 .dress-code {
@@ -649,23 +676,32 @@ body {
         /* УБИРАЕМ изменение цвета, оставляем белый как в основном стиле */
         /* color: #444;  УДАЛИТЬ ЭТУ СТРОКУ */
     }
-    
-    .wedding-date {
-        /* color: #666;  УДАЛИТЬ ЭТУ СТРОКУ */
-        /* Оставляем белый как в основном стиле */
-    }
-    
+       
     .wedding-date-large {
         font-size: 2.5rem;
     }
     
     .countdown {
-        gap: 10px;
+        gap: 5px;
+        margin: 40px 0;
+        flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
+        padding: 0 10px;
     }
     
     .countdown-number {
-        font-size: 2rem;
-        min-width: 60px;
+        font-size: 2.2rem;
+        min-width: 65px;
+    }
+
+
+    .countdown-label {
+        font-size: 0.85rem; /* Чуть меньше текст меток */
+    }
+    
+    /* Добавляем или корректируем разделители если они есть в основном стиле */
+    .countdown-item:not(:last-child)::after {
+        font-size: 2rem; /* Меньше разделители на мобильных */
+        right: -3px;
     }
     
     .timeline-item {
@@ -713,95 +749,6 @@ body {
         padding: 0px;
     }
     
-    /* УДАЛИТЕ ВЕСЬ ЭТОТ БЛОК, КОТОРЫЙ ПЕРЕОПРЕДЕЛЯЕТ ФОНЫ */
-    /*
-    .hero {
-        background: 
-            linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)),
-            url('./images/hero.png'),
-            #fdf6f0;
-        background-size: cover;
-        background-position: center;
-    }
-    
-    .countdown-section {
-        background: 
-            linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.9)),
-            url('./images/hero.png'),
-            #fff;
-        background-size: cover;
-        background-position: center;
-    }
-    
-    .program-section {
-        background: 
-            linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.85)),
-            url('./images/program-bg.jpg'),
-            #f9f7f4;
-        background-size: cover;
-        background-position: center;
-        padding-bottom: 20px;
-    }
-    
-    .location {
-        background: 
-            linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.85)),
-            url('./images/location-bg.jpg'),
-            #f8f9f7;
-        background-size: cover;
-        background-position: center;
-        padding-top: 20px;
-    }
-    
-    .dress-code {
-        background: 
-            linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.85)),
-            url('./images/dresscode-bg.jpg'),
-            #fdf8f8;
-        background-size: cover;
-        background-position: center;
-    }
-    
-    .gifts {
-        background: 
-            linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.85)),
-            url('./images/gifts-bg.jpg'),
-            #fbf9f7;
-        background-size: cover;
-        background-position: center;
-    }
-    
-    .faq {
-        background: 
-            linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.85)),
-            url('./images/faq-bg.jpg'),
-            #f8f9f7;
-        background-size: cover;
-        background-position: center;
-    }
-    
-    .rsvp {
-        background: 
-            linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.85)),
-            url('./images/rsvp-bg.jpg'),
-            #fdf8f8;
-        background-size: cover;
-        background-position: center;
-    }
-    */
-    
-    /* Также удалите этот блок изменения цвета текста */
-    /*
-    .section-title,
-    .greeting-large,
-    .wedding-date-large,
-    .countdown-text,
-    .dress-code-description,
-    .gifts-intro,
-    .faq-intro {
-        color: #444;
-    }
-    */
     
     /* Делаем карточки более прозрачными для лучшего контраста */
     .location-card,
@@ -837,13 +784,143 @@ body {
         font-size: 2rem;
     }
     
-    .countdown {
-        flex-wrap: wrap;
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
     }
     
-    .countdown-item {
-        width: 45%;
-        margin-bottom: 15px;
+    .hero-content h1 {
+        font-size: 2.5rem;
+        /* УБИРАЕМ изменение цвета, оставляем белый как в основном стиле */
+        /* color: #444;  УДАЛИТЬ ЭТУ СТРОКУ */
+    }
+       
+    .wedding-date-large {
+        font-size: 2.5rem;
+    }
+    
+    /* ИЗМЕНЯЕМ ТОЛЬКО ТАЙМЕР - ОСТАЛЬНОЕ НЕ ТРОГАЕМ */
+    .countdown {
+        gap: 5px; /* Уменьшаем отступы */
+        margin: 40px 0;
+        flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
+        padding: 0 10px;
+    }
+    
+    .countdown-number {
+        font-size: 2.2rem; /* Чуть меньше размер */
+        min-width: 65px; /* Адаптируем ширину */
+    }
+    
+    .countdown-label {
+        font-size: 0.85rem; /* Чуть меньше текст меток */
+    }
+    
+    /* Добавляем или корректируем разделители если они есть в основном стиле */
+    .countdown-item:not(:last-child)::after {
+        font-size: 2rem; /* Меньше разделители на мобильных */
+        right: -3px;
+    }
+    
+    .timeline-item {
+        flex-direction: column;
+    }
+    
+    .timeline-time {
+        padding-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .timeline-content h3 {
+        border-left: none;
+        padding-left: 0;
+        border-top: 2px solid #ddd;
+        padding-top: 10px;
+    }
+    
+    .transport-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .map-buttons {
+        flex-direction: column;
+    }
+    
+    .color-palette {
+        gap: 15px;
+    }
+    
+    .color-swatch {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .dress-code-tips {
+        grid-template-columns: 1fr;
+    }
+    
+    .gifts-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-section {
+        padding: 0px;
+    }
+    
+    
+    /* Делаем карточки более прозрачными для лучшего контраста */
+    .location-card,
+    .tip-card,
+    .transport-option,
+    .gift-option,
+    .form-section,
+    .important-notice,
+    .gifts-note {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(2px);
+    }
+    
+    .png-element {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .section {
+        padding: 40px 0;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .wedding-date-large {
+        font-size: 2rem;
+    }
+    
+    /* ИЗМЕНЯЕМ ТОЛЬКО ТАЙМЕР ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ */
+    .countdown {
+        gap: 3px;
+        margin: 35px 0;
+        padding: 0 5px;
+    }
+    
+    .countdown-number {
+        font-size: 1.8rem;
+        min-width: 55px;
+    }
+    
+    .countdown-label {
+        font-size: 0.75rem;
+    }
+    
+    .countdown-item:not(:last-child)::after {
+        font-size: 1.6rem;
+        right: -2px;
     }
     
     .program-section {
@@ -853,24 +930,6 @@ body {
     .location {
         padding-top: 20px;
     }
-    
-    /* УДАЛИТЕ И ЭТОТ БЛОК */
-    /*
-    .hero,
-    .countdown-section,
-    .program-section,
-    .location,
-    .dress-code,
-    .gifts,
-    .faq,
-    .rsvp {
-        background: 
-            linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.92)),
-            var(--original-bg);
-        background-size: cover;
-        background-position: center;
-    }
-    */
 }
 
 /* Плавные анимации */
@@ -878,6 +937,7 @@ body {
 .allergy-input-container,
 #formMessage {
     transition: all 0.3s ease;
+
 }
 
 /* Улучшения для темной темы */
